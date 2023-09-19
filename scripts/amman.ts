@@ -3,12 +3,15 @@ import { Connection, Keypair, PublicKey } from '@solana/web3.js'
 
 import { PROGRAM_ADDRESS } from '../src/generated'
 
-export const amman = Amman.instance({
-  knownLabels: { [PROGRAM_ADDRESS]: 'Tweet Program' },
-})
+export const DEVNET = 'https://api.devnet.solana.com'
 
-export async function setupAuthor() {
-  const connection = new Connection(LOCALHOST, 'confirmed')
+export async function setupAuthor(host: string = LOCALHOST) {
+  const amman = Amman.instance({
+    knownLabels: { [PROGRAM_ADDRESS]: 'Tweet Program' },
+    connectClient: host === LOCALHOST,
+  })
+
+  const connection = new Connection(host, 'confirmed')
 
   const [author, authorPair]: [PublicKey, Keypair, string] =
     await amman.addr.genLabeledKeypair('author')
@@ -16,5 +19,5 @@ export async function setupAuthor() {
 
   const authorTxHandler = amman.payerTransactionHandler(connection, authorPair)
 
-  return { connection, author, authorPair, authorTxHandler }
+  return { connection, author, authorPair, authorTxHandler, amman }
 }

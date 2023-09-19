@@ -1,9 +1,11 @@
 import { sendTweetTx } from '../src/'
-import { setupAuthor } from './amman'
+import { DEVNET, setupAuthor } from './amman'
 import assert from 'assert/strict'
 
 async function main() {
-  const { amman, author, authorPair, authorTxHandler } = await setupAuthor()
+  const { amman, author, authorPair, authorTxHandler } = await setupAuthor(
+    DEVNET
+  )
   const [tweet, tweetPair] = await amman.addr.genLabeledKeypair('first tweet')
   const tx = sendTweetTx(author, tweet, '#first', 'Content of first tweet')
   await authorTxHandler
