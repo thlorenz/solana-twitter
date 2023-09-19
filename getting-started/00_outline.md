@@ -188,3 +188,25 @@
 - at the time of writing this tutorial we got 15 accounts back
 - you don't have to understand the above query, it is merly to show you that the entire power
   of mongodb queries is at your disposal to inqire about on-chain data
+
+## 4. Saving/Exporting Requests
+
+- show with that last request how to export it
+- how to save it
+- and how one would share it
+
+## 5. Transactions
+
+### 5.1. IDL tab seguay
+
+- show IDL tab which confirms only one account
+- we can also see the instructions that this program supports
+
+NOTE: in its current state it supports two more, but the IDL was never updated on devnet
+- either we don't mention those other instructions
+- or we deploy another version of the program with the IDL updated
+
+### 5.2 Sending a Tweet
+
+- using `sendTweet` instruction
+- somehow send a tweet (I was able to use it via the modified dev script)
