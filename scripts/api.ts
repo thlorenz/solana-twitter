@@ -24,7 +24,7 @@ export class TweetApi {
 
   async sendTweet(topic: string, content: string) {
     const tweet = anchor.web3.Keypair.generate()
-    return this.program.rpc.sendTweet(topic, content, {
+    const sig = await this.program.rpc.sendTweet(topic, content, {
       accounts: {
         tweet: tweet.publicKey,
         author: this.author,
@@ -32,5 +32,17 @@ export class TweetApi {
       },
       signers: [tweet],
     })
+    return { sig, tweet: tweet.publicKey.toBase58() }
+  }
+
+  async updateTweet(tweet: string, topic: string, content: string) {
+    const tweetPubkey = new anchor.web3.PublicKey(tweet)
+    const sig = await this.program.rpc.updateTweet(topic, content, {
+      accounts: {
+        tweet: tweetPubkey,
+        author: this.author,
+      },
+    })
+    return { sig }
   }
 }
