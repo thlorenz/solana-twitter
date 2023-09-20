@@ -12,11 +12,11 @@ pub mod solana_twitter {
         let clock: Clock = Clock::get().unwrap();
 
         if topic.chars().count() > 50 {
-            return Err(ErrorCode::TopicTooLong.into())
+            return Err(ErrorCode::TopicTooLong.into());
         }
 
         if content.chars().count() > 280 {
-            return Err(ErrorCode::ContentTooLong.into())
+            return Err(ErrorCode::ContentTooLong.into());
         }
 
         tweet.author = *author.key;
@@ -27,15 +27,19 @@ pub mod solana_twitter {
         Ok(())
     }
 
-    pub fn update_tweet(ctx: Context<UpdateTweet>, topic: String, content: String) -> ProgramResult {
+    pub fn update_tweet(
+        ctx: Context<UpdateTweet>,
+        topic: String,
+        content: String,
+    ) -> ProgramResult {
         let tweet: &mut Account<Tweet> = &mut ctx.accounts.tweet;
 
         if topic.chars().count() > 50 {
-            return Err(ErrorCode::TopicTooLong.into())
+            return Err(ErrorCode::TopicTooLong.into());
         }
 
         if content.chars().count() > 280 {
-            return Err(ErrorCode::ContentTooLong.into())
+            return Err(ErrorCode::ContentTooLong.into());
         }
 
         tweet.topic = topic;
@@ -55,6 +59,7 @@ pub struct SendTweet<'info> {
     pub tweet: Account<'info, Tweet>,
     #[account(mut)]
     pub author: Signer<'info>,
+    /// CHECK: not necessary since it is the system program I guess
     #[account(address = system_program::ID)]
     pub system_program: AccountInfo<'info>,
 }
