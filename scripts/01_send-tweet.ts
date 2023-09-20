@@ -10,8 +10,8 @@ async function main() {
   assert(content != null, 'Content is required to be passes as second argument')
 
   const tweetApi = new TweetApi()
-  const res = await tweetApi.sendTweet(topic, content)
-  console.error(res)
+  const sig = await tweetApi.sendTweet(topic, content)
+  console.error(`https://explorer.solana.com/tx/${sig}?cluster=devnet`)
 }
 
 main()
