@@ -45,4 +45,15 @@ export class TweetApi {
     })
     return { sig }
   }
+
+  async deleteTweet(tweet: string) {
+    const tweetPubkey = new anchor.web3.PublicKey(tweet)
+    const sig = await this.program.rpc.deleteTweet({
+      accounts: {
+        tweet: tweetPubkey,
+        author: this.author,
+      },
+    })
+    return { sig }
+  }
 }
